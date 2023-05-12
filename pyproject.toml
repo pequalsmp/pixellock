@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pixellock"
+version = "1.0.0"
+description = "pixelsort your monitors with a single command."
+authors = [
+    "pequalsmp <945480+pequalsmp@users.noreply.github.com>"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pillow = "^9.5.0"
+pixelsort = "^1.0.1"
+typer = "^0.9.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.3.1"
+
+[tool.poetry.scripts]
+pixellock = "pixellock.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

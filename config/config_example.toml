@@ -1,0 +1,4 @@
+outputs = [
+    "HDMI-A-1"
+    "LVDS-1",
+]
