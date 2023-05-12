@@ -4,7 +4,7 @@
 
 # Setup
 
-To install pixellock, you can use pipx:
+Using pipx:
 
 > pipx install pixellock
 
@@ -28,9 +28,14 @@ you'll find the corresponding screenshots under /tmp/<output-name>.png
 # Configuration
 
 If you're running a compositor/window-manager different from Hyprland/Sway,
-you might want to specify the outputs manually, by modifying
-config/config_example.toml to fit your needs and rename the file to:
+you might want to specify the outputs manually.
+
+To do so, modify:
+
+> config/config_example.toml
+
+to fit your needs and place it under:
 
 > $XDG_CONFIG_HOME/pixellock/config.toml
 
-Note: $XDG_CONFIG_HOME usually resolves to ~/.config
+Note: Usually $XDG_CONFIG_HOME resolves to ~/.config

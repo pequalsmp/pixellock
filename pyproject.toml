@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pixellock"
-version = "1.0.0"
+version = "1.0.1"
 description = "pixelsort your monitors with a single command."
 authors = [
     "pequalsmp <945480+pequalsmp@users.noreply.github.com>"

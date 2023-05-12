@@ -26,7 +26,7 @@ def get_active_outputs():
         output_list = subprocess.check_output(["swaymsg", "-r", "-t", "get_outputs"])
     else:
         with open(
-            f"{os.environ('XDG_CONFIG_HOME')}/pixellock/config.toml", "rb"
+            "{}/pixellock/config.toml".format(os.environ["XDG_CONFIG_HOME"]), "rb"
         ) as toml_file:
             config = tomllib.load(toml_file)
 
