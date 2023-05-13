@@ -1,7 +1,8 @@
-import typer
-from pixelsort import pixelsort
+import multiprocessing
 
-from .main import get_active_outputs, get_screen
+import typer
+
+from .main import get_active_outputs, pixelsort_output
 
 app = typer.Typer()
 
@@ -26,17 +27,15 @@ def save(
         "--sorting-function",
         help="Which sorting function to use. Pick from: lightness, hue, saturation, intensity, minimum",
     ),
-):
+) -> None:
     for output in get_active_outputs():
         output = output["name"]
 
         path = f"{dir}/{output}.png"
 
-        pixelsort(
-            image=get_screen(output),
-            interval_function=interval,
-            sorting_function=sorting,
-        ).save(path)
+        multiprocessing.Process(
+            target=pixelsort_output, args=(output, path, interval, sorting)
+        ).start()
 
 
 if __name__ == "__main__":

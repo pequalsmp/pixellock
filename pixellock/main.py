@@ -3,12 +3,15 @@ import json
 import os
 import subprocess
 import tomllib
+from typing import Any
 
 from PIL import Image
+from pixelsort import pixelsort
 
 
-def capture_screen(name):
-    """Grab screen"""
+def capture_screen(name) -> bytes:
+    """Grab screen using external tooling"""
+
     process = subprocess.run(
         ["grim", "-t", "png", "-l", "0", "-o", name, "-"],
         capture_output=True,
@@ -18,8 +21,9 @@ def capture_screen(name):
     return process.stdout
 
 
-def get_active_outputs():
+def get_active_outputs() -> Any:
     """Get active monitors if WM is Hyprland/Sway or fallback to config"""
+
     if "HYPRLAND_INSTANCE_SIGNATURE" in os.environ:
         output_list = subprocess.check_output(["hyprctl", "monitors", "-j"])
     elif "SWAYSOCK" in os.environ:
@@ -35,12 +39,22 @@ def get_active_outputs():
     return json.loads(output_list)
 
 
-def get_image_from_bytes(data):
+def get_image_from_bytes(data) -> Image.Image:
+    """Get Pillow image from raw bytes"""
+
     return Image.open(io.BytesIO(data))
 
 
-def get_screen(output):
-    # verbose, but maybe useful, later on
+def pixelsort_output(output, path, interval, sorting) -> None:
+    """Get the screen and save pixelsort-ed version of it"""
+
+    # verbose, may be useful, later on
     raw_image = capture_screen(output)
 
-    return get_image_from_bytes(raw_image)
+    image = get_image_from_bytes(raw_image)
+
+    pixelsort(
+        image=image,
+        interval_function=interval,
+        sorting_function=sorting,
+    ).save(path)
